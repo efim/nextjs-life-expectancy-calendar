@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { CalendarScreen } from "./CalendarScreen";
-import { CalendarSettingsForm } from "./CalendarSettingsForm";
-import { HardCodedData } from "./who-data";
+import { CalendarScreen } from "../components/CalendarScreen";
+import { CalendarSettingsForm } from "../components/CalendarSettingsForm";
+import { HardCodedData } from "../utils/who-data";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 
 interface Props {

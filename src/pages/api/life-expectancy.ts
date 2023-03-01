@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { HardCodedData } from "../who-data";
+import { HardCodedData } from "../../utils/who-data";
 import lodash from "lodash";
 
 type Data = {
