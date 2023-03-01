@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { CalendarScreen } from "./CalendarScreen";
 import { CalendarSettingsForm } from "./CalendarSettingsForm";
 import { HardCodedData } from "./who-data";
-import lodash from "lodash";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 
 interface Props {
@@ -31,7 +30,6 @@ const CalendarPage: React.FC<
   const [birthdate, setBirthdate] = useState(
     new Date(savedDate || "1992-01-01")
   );
-  const [lifeExpectancyAtBirth, setLifeExpectancyAtBirth] = useState(70);
 
   function changeCountry(country: string): void {
     if (typeof window !== "undefined") {
@@ -53,20 +51,13 @@ const CalendarPage: React.FC<
     setBirthdate(age);
   }
 
-  useEffect(() => {
-    let countryLongevity = HardCodedData.lifeExpectancyAtBirth.filter(
-      ({ SpatialDim, Dim1 }) => SpatialDim == countryCode && Dim1 == gender
-    );
-    let mostCurrent = lodash.maxBy(countryLongevity, (obj) => obj.TimeDim)!;
-    setLifeExpectancyAtBirth(mostCurrent.NumericValue);
-  }, [countryCode, gender]);
-
   return (
     <div>
       <div className="text-center text-4xl">Calendar Page</div>
       <CalendarScreen
         birthdate={birthdate}
-        lifeExpectancyAtBirth={lifeExpectancyAtBirth}
+        country={countryCode}
+        gender={gender}
       />
       <div className="flex flex-row place-content-center p-6 ">
         <CalendarSettingsForm

@@ -2,13 +2,17 @@ import React, { useEffect, useId, useState } from "react";
 
 interface Props {
   birthdate: Date;
-  lifeExpectancyAtBirth: number;
+  country: string;
+  gender: "MLE" | "FMLE";
 }
 
 export const CalendarScreen: React.FC<Props> = ({
   birthdate,
-  lifeExpectancyAtBirth,
+  country,
+  gender,
 }) => {
+  const [lifeExpectancyAtBirth, setLifeExpectancyAtBirth] = useState(70);
+
   let millisOld = new Date().getTime() - birthdate.getTime();
   let hoursOld = millisOld / 1000 / 60 / 60;
   let weeksOld = hoursOld / 24 / 7 - 1;
@@ -16,6 +20,21 @@ export const CalendarScreen: React.FC<Props> = ({
   let weeksToLive = Math.ceil((lifeExpectancyAtBirth * 365) / 7);
 
   const screenId = useId();
+
+  useEffect(() => {
+    fetch(`/api/life-expectancy`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ countryCode: country, gender: gender }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+          console.log(`got expectancy: `, data);
+        setLifeExpectancyAtBirth(data.lifeExpectancyAtBirth)
+      });
+  }, [country, gender]);
 
   return (
     <div className=" flex justify-center p-2">
