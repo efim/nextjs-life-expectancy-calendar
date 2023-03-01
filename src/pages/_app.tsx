@@ -1,5 +1,5 @@
 import { CalendarPage } from "./CalendarPage"
-/* import './index.css' */
+import './index.css'
 
 function App() {
 
