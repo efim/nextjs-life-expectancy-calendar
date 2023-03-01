@@ -31,7 +31,6 @@ export const CalendarScreen: React.FC<Props> = ({
     })
       .then((response) => response.json())
       .then((data) => {
-          console.log(`got expectancy: `, data);
         setLifeExpectancyAtBirth(data.lifeExpectancyAtBirth)
       });
   }, [country, gender]);

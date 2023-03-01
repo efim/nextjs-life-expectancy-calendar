@@ -16,8 +16,6 @@ export default function handler(
       SpatialDim == body.countryCode && Dim1 == body.gender
   );
   let mostCurrent = lodash.maxBy(countryLongevity, (obj) => obj.TimeDim)!;
-    console.log(`> looking by ${body.gender} and ${body.countryCode} `, body);
-    console.log(`> for most current data `,  mostCurrent );
   res.status(200).json({ lifeExpectancyAtBirth: mostCurrent.NumericValue})
   // handle the request and response
 }
