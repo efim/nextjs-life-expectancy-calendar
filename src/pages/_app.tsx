@@ -1,13 +1,7 @@
-import { CalendarPage } from "./CalendarPage"
 import './index.css'
+import { AppProps } from "next/app";
 
-function App() {
-
-  return (
-    <div className="App">
-      <CalendarPage />
-    </div>
-  )
+function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
 }
-
-export default App
+export default MyApp

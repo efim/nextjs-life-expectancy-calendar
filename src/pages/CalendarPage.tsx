@@ -3,8 +3,16 @@ import { CalendarScreen } from "./CalendarScreen";
 import { CalendarSettingsForm } from "./CalendarSettingsForm";
 import { HardCodedData } from "./who-data";
 import lodash from "lodash";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
 
-export const CalendarPage: React.FC = ({}) => {
+interface Props {
+  allowedCountries: { code: string; name: string }[];
+}
+
+const CalendarPage: React.FC<
+  InferGetStaticPropsType<typeof getStaticProps>
+> = ({ allowedCountries }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  /* export const CalendarPage: React.FC<Props> = ({ allowedCountries }: InferGetStaticPropsType<typeof getStaticProps>) => { */
   let savedCountry =
     typeof window !== "undefined" ? localStorage.getItem(`countryCode`) : "RUS";
   const [countryCode, setCountryCode] = useState(
@@ -68,9 +76,22 @@ export const CalendarPage: React.FC = ({}) => {
           changeGender={changeGender}
           birthdate={birthdate}
           changeBirthdate={changeBirthdate}
-          countryOptions={HardCodedData.countryOptions}
+          countryOptions={allowedCountries}
         />
       </div>
     </div>
   );
+};
+
+export default CalendarPage;
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  let allowedCountries = HardCodedData.countryOptions;
+
+  return {
+    props: {
+      lala: "hello",
+      allowedCountries: allowedCountries,
+    },
+  };
 };
