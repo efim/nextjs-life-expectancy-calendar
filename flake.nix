@@ -16,7 +16,7 @@
               # pkgs.typescript
               pkgs.nodejs
               # pkgs.nodePackages_latest.ts-node
-              # pkgs.nodePackages.prettier
+              pkgs.nodePackages.prettier
               # pkgs.nodePackages.autoprefixer
               # pkgs.nodePackages.postcss
             ];
