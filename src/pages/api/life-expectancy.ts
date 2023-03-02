@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { HardCodedData } from "../../utils/who-data";
-import lodash from "lodash";
 
 type Data = {
   lifeExpectancyAtBirth: number;
@@ -14,8 +13,10 @@ export default function handler(
   let countryLongevity = HardCodedData.lifeExpectancyAtBirth.filter(
     ({ SpatialDim, Dim1 }) =>
       SpatialDim == body.countryCode && Dim1 == body.gender
-  );
-  let mostCurrent = lodash.maxBy(countryLongevity, (obj) => obj.TimeDim)!;
-  res.status(200).json({ lifeExpectancyAtBirth: mostCurrent.NumericValue})
+  ).sort(function (first, second) {
+    return first.TimeDim < second.TimeDim ? -1 : 1
+  })
+  let mostCurrent = countryLongevity.at(0)
+  res.status(200).json({ lifeExpectancyAtBirth: (mostCurrent?.NumericValue || 1) })
   // handle the request and response
 }
