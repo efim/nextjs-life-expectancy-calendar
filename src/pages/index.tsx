@@ -3,6 +3,7 @@ import { CalendarScreen } from "../components/CalendarScreen";
 import { CalendarSettingsForm } from "../components/CalendarSettingsForm";
 import { HardCodedData } from "../utils/who-data";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
+import Head from "next/head";
 
 interface Props {
   allowedCountries: { code: string; name: string }[];
@@ -52,25 +53,30 @@ const CalendarPage: React.FC<
   }
 
   return (
-    <div>
-      <div className="text-center text-4xl">Calendar Page</div>
-      <CalendarScreen
-        birthdate={birthdate}
-        country={countryCode}
-        gender={gender}
-      />
-      <div className="flex flex-row place-content-center p-6 ">
-        <CalendarSettingsForm
-          country={countryCode}
-          changeCountry={changeCountry}
-          gender={gender}
-          changeGender={changeGender}
+    <>
+      <Head>
+        <title>Life expectancy calendar</title>
+      </Head>
+      <div>
+        <div className="text-center text-4xl">Calendar Page</div>
+        <CalendarScreen
           birthdate={birthdate}
-          changeBirthdate={changeBirthdate}
-          countryOptions={allowedCountries}
+          country={countryCode}
+          gender={gender}
         />
+        <div className="flex flex-row place-content-center p-6 ">
+          <CalendarSettingsForm
+            country={countryCode}
+            changeCountry={changeCountry}
+            gender={gender}
+            changeGender={changeGender}
+            birthdate={birthdate}
+            changeBirthdate={changeBirthdate}
+            countryOptions={allowedCountries}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
